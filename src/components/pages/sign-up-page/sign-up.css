@@ -1,0 +1,47 @@
+.signup-wh {
+  width: 800px;
+  height: 700px;
+}
+
+.heading {
+  color: #c2c2c5;
+  font-weight: 500;
+  font-size: 40px;
+  text-transform: uppercase;
+}
+
+.required {
+  color: red;
+}
+
+.password-container {
+  position: relative;
+}
+
+.password-icon {
+  position: absolute;
+  cursor: pointer;
+  top: 43px;
+  right: 5px;
+  margin-left: 5px;
+}
+
+.form-group {
+  margin-bottom: 0;
+  display: flex;
+}
+
+.form-wrapper:nth-child(even) {
+  margin-left: 10px;
+}
+
+input[type="email"] {
+  display: block;
+  width: 100%;
+}
+
+@media screen and (max-width: 480px) {
+  input {
+    width: 130px;
+  }
+}

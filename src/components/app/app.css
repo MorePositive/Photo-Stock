@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Tamma+2:wght@400;500;600;700&display=swap');
+
+*, *::before,*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Baloo Tamma 2', sans-serif;
+  
+}
+
+#root {
+  min-height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.uploaded-img {
+  object-fit: cover;
+  width: 300px;
+  height: 300px;
+  margin: 0 auto;
+}
+
+section {
+  color: #c2c2c5;
+  text-align: center;
+}

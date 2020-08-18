@@ -1,0 +1,8 @@
+.StartPageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient( rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.8) ) no-repeat center/cover,
+              url('../../images/bg_photographer_1920x1200.jpg') no-repeat center/cover;
+  height: 100vh;
+}

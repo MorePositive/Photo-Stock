@@ -1,0 +1,64 @@
+.category-container {
+  padding-bottom: 50px;
+}
+
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.image-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 10px 10px 10px 10px;
+  margin: 10px;
+  max-width: 330px;
+  border: 2px solid #bebebe;
+}
+
+.card-title {
+  padding: 10px;
+  border-bottom: 1px solid #bebebe;
+  white-space: pre-wrap;
+}
+
+.card-info {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  position: relative;
+}
+
+.like-label {
+  position: relative;
+}
+
+.like-label input {
+  visibility: hidden;
+  
+}
+
+.like-label input:checked + .heart {
+  color: rgb(148, 6, 173);
+  transition: all 0.5s;
+}
+
+.like-label .heart {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.like-counter {
+  margin-left: 10px;
+}
+
+.more-btn {
+  width: 200px;
+  margin: 0 auto;
+}
