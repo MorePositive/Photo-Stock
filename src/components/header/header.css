@@ -1,40 +1,56 @@
 .navbar {
+  background: -webkit-gradient(linear, left top, right top, from(rgb(28, 27, 27)), to(rgb(26, 23, 23)));
+  background: -o-linear-gradient(left, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
   background: linear-gradient(90deg, rgb(28, 27, 27) 0%, rgb(26, 23, 23) 100%);
   height: 80px;
+  width: 100vw;
   padding: 0 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: fixed;
   font-size: 18px;
-  box-shadow: 0px 0px 25px 1px #000;
+  -webkit-box-shadow: 0px 0px 25px 1px #000;
+          box-shadow: 0px 0px 25px 1px #000;
+  z-index: 10;
 }
 
 .navbar-logo {
   color: #fff;
-  justify-self: start;
+  -ms-grid-column-align: start;
+      justify-self: start;
   cursor: pointer;
   text-decoration: none;
   font-size: 26px;
 }
 
-.fa-firstdraft {
-  margin-left: 8px;
-  font-size: 26px;
-}
-
 .nav-menu {
+  display: -ms-grid;
   display: grid;
+  -ms-grid-columns: (auto);
   grid-template-columns: repeat(5, auto);
   list-style: none;
   text-align: center;
   width: 60vw;
-  justify-content: end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
   margin-right: 32px;
 }
 
 .nav-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   height: 50px;
   padding: 0 8px;
   border-right: 2px solid #fff;
@@ -53,6 +69,8 @@
 .nav-links:hover {
   background-color: rgb(148, 6, 173);
   border-radius: 4px;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
@@ -75,8 +93,12 @@
 
 .login-details {
   margin-left: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: baseline;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
 }
 
 .greeting {
@@ -91,7 +113,9 @@
 
 .user-photo {
   margin: 0px 10px;
-  align-self: end;
+  -ms-flex-item-align: end;
+      -ms-grid-row-align: end;
+      align-self: end;
   position: relative;
 }
 
@@ -112,14 +136,21 @@
   }
 
   .nav-menu {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     width: 100%;
     height: 90vh;
     position: absolute;
     top: 80px;
     left: -100%;
     opacity: 1;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
   }
 
@@ -127,6 +158,8 @@
     background: #242222;
     left: 0;
     opacity: 1;
+    -webkit-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
     transition: all 0.5s ease;
     z-index: 1;
   }
@@ -148,26 +181,37 @@
   }
 
   .user-details {
-    flex-direction: column;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
   }
   
   .user-photo {
-    align-self: center;
+    -ms-flex-item-align: center;
+        -ms-grid-row-align: center;
+        align-self: center;
   }
 
   .navbar-logo {
     position: absolute;
     top: 0;
     left: 0;
-    transform: translate(25%, 50%);
+    -webkit-transform: translate(25%, 50%);
+        -ms-transform: translate(25%, 50%);
+            transform: translate(25%, 50%);
   }
 
   .menu-icon {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     position: absolute;
     top: 0;
     right: 0;
-    transform: translate(-80%, 80%);
+    -webkit-transform: translate(-80%, 80%);
+        -ms-transform: translate(-80%, 80%);
+            transform: translate(-80%, 80%);
     font-size: 32px;
     cursor: pointer;
   }
@@ -194,6 +238,8 @@
   .nav-links-mobile:hover {
     background: #fff;
     color: #1888ff;
+    -webkit-transition: 250ms;
+    -o-transition: 250ms;
     transition: 250ms;
   }
 

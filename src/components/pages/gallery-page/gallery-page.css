@@ -1,18 +1,26 @@
-.category-container {
-  padding-bottom: 50px;
-}
-
 .image-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   margin-bottom: 20px;
 }
 
 .image-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   padding: 10px 10px 10px 10px;
   margin: 10px;
   max-width: 330px;
@@ -26,8 +34,11 @@
 }
 
 .card-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-around;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   margin-top: 20px;
   position: relative;
 }
@@ -43,13 +54,15 @@
 
 .like-label input:checked + .heart {
   color: rgb(148, 6, 173);
+  -webkit-transition: all 0.5s;
+  -o-transition: all 0.5s;
   transition: all 0.5s;
 }
 
 .like-label .heart {
   position: absolute;
-  top: 0;
-  left: 0;
+  bottom: 6px;
+  right: -25px;
   font-size: 20px;
   cursor: pointer;
 }

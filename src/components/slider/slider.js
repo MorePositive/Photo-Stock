@@ -112,13 +112,6 @@ export default class Carousel extends Component {
           className="top-card"
         >
           <img className="uploaded-img" src={image.url} alt={image.url}/>
-          <div
-            className="top-likes"
-          >
-            <FontAwesomeIcon className="heart" icon={faHeart}/>
-            <span className="like-counter">{image.likes && (image.likes.length || '')}</span>
-          </div>
-          
         </div>
       )
       });

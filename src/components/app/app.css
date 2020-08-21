@@ -3,7 +3,8 @@
 *, *::before,*::after {
   padding: 0;
   margin: 0;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   font-family: 'Baloo Tamma 2', sans-serif;
   
 }
@@ -14,7 +15,8 @@
 }
 
 .uploaded-img {
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   width: 300px;
   height: 300px;
   margin: 0 auto;
@@ -23,4 +25,5 @@
 section {
   color: #c2c2c5;
   text-align: center;
+  padding-bottom: 50px;
 }

@@ -47,7 +47,7 @@ export default class Account extends Component {
     const author = userName || displayName;
     const { title, category, url } = this.state;
 
-    const imageData = { author, email, title, category, url, likes: [author] }
+    const imageData = { author, email, title, category, url, likes: [] }
     axiosData.post(`/images/${category}.json`, imageData)
     .then(res => {
       this.setState({

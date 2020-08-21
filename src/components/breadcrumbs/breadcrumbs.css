@@ -1,11 +1,16 @@
 .breadcrumbs {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   background: rgb(148, 6, 173);
   height: 50px;
   padding-left: 10%;
   margin-bottom: 50px;
-  box-shadow: 0px 0px 25px 1px #000;
+  -webkit-box-shadow: 0px 0px 25px 1px #000;
+          box-shadow: 0px 0px 25px 1px #000;
 }
 
 .link {

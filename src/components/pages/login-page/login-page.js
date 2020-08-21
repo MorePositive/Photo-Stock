@@ -46,11 +46,11 @@ export default class LoginPage extends Component {
         <form className="login-form">
           <div>
             <label htmlFor="login-email" className="label">E-mail:</label>
-            <input value={this.state.email} onChange={this.handleChange} name="email" type="email" className="input email" id="email_field" placeholder="Enter email" autoComplete="on" />
+            <input value={this.state.email} onChange={this.handleChange} name="email" type="email" className="input email" id="login-email" placeholder="Enter email" autoComplete="on" />
           </div>
           <div>
             <label htmlFor="login-password" className="label">Password:</label>
-            <input value={this.state.password} onChange={this.handleChange} name="password" type="password" className="input password" id="password_field" placeholder="Password" autoComplete="current-password" />
+            <input value={this.state.password} onChange={this.handleChange} name="password" type="password" className="input password" id="login-password" placeholder="Password" autoComplete="current-password" />
           </div>
           <button
           onClick={this.onLogin}
