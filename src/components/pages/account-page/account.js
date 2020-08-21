@@ -126,7 +126,7 @@ export default class Account extends Component {
     return (
       <section className="account-page">
         <form onSubmit={this.postImageAdd} className="account-form">
-        <div className="form-wrapper">
+        <div className="form-container">
           <div className="input-container">
             <div className="input-group">
               <label htmlFor="mark" className="account-label">Author</label>
