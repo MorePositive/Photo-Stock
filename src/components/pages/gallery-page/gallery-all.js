@@ -1,67 +1,32 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
 
-import axiosData from '../../../service/axiosData';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../../loader/loader';
+import { fetchImages, likeImage } from '../../../store/actions/images'
+import { connect } from 'react-redux'
 
-export default class GalleryAll extends Component {
+class GalleryAll extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      images: [],
-      loading: false
-    }
+  state = {
+    liked: false
   }
 
   componentDidMount() {
-    this.updateData();
-  }
-
-  updateData = () => {
-    this.setState({loading : true})
-    axiosData.get('/images.json')
-    .then(res => {
-    const fetchedCategories = [];
-    for (let key in res.data) {
-      fetchedCategories.push({
-        ...res.data[key],
-        id: key
-      })
-    }
-    this.setState({
-      images: fetchedCategories,
-      loading: false
-    })
-  })
-  .catch(err => console.log(err)); 
+    this.props.fetchImages();
   }
 
   onLikeHandler = (id, el, e) => {
-      const { userName, displayName} = this.props.data;
-      const author = userName || displayName;
-      if (e.target.checked) {
-        if (!el.likes) {
-          el.likes = [author]
-        } else if (el.likes.indexOf(author) === -1) {
-          el.likes.push(author)
-        }
-      } else {
-        const idx = el.likes.indexOf(author)
-        el.likes.splice(idx, 1)
-      }
-
-      axiosData.patch(`/images/${el.category}/${id}.json`, { likes: el.likes })
-      .then(this.setState({images: this.state.images}))
-      .catch(err => console.log(err))	
+    const { userName, displayName} = this.props.data;
+    const author = userName || displayName;	
+    this.props.likeImage(id, el, e, author)
+    this.setState((prev) => ({liked: !prev.liked}))
   }
 
   render() {
     const author = this.props.data.userName || this.props.data.displayName;
-    const { images } = this.state;
+    const { images, loading } = this.props;
 
     const categories = images.map((img) => {
      
@@ -112,7 +77,7 @@ export default class GalleryAll extends Component {
 
     return (
       <section className="gallery-page">
-        {this.state.loading ? 
+        {loading || !images ? 
           <Loader /> :
           categories
         }
@@ -120,3 +85,19 @@ export default class GalleryAll extends Component {
     )
   }   
 };
+
+function mapStateToProps(state) {
+  return {
+    images: state.images.images,
+    loading: state.images.loading
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchImages: () => dispatch(fetchImages()),
+    likeImage: (id, el, e, author) => dispatch(likeImage(id, el, e, author))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GalleryAll);

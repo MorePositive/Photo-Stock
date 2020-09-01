@@ -7,13 +7,9 @@ import Dropdown from './dropdown';
 
 export default class Header extends Component {
 
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      click: false,
-      dropdown: false
-    }
+  state = {
+    click: false,
+    dropdown: false
   }
 
   handleClick = () => {

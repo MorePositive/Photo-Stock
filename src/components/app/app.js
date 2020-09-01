@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import firebase from 'firebase/app';
 import Cookies from 'js-cookie'
 
 import axiosData from '../../service/axiosData'
-import { fire } from '../../service/fire'
+import { fire, uiConfig } from '../../service/fire'
 
 import './app.css';
 
@@ -13,24 +12,12 @@ import BaseContainer from '../base-container/base-container'
 
 export default class App extends Component {
 
-  data = firebase.auth();
+
 
   state = {
     isLoggedIn: false,
     currentUser: null
   }
-
-  uiConfig = {
-    signInFlow: "popup",
-    signInOptions: [
-      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-      firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-      firebase.auth.GithubAuthProvider.PROVIDER_ID,
-    ],
-    callbacks: {
-      signInSuccessWithAuthResult: () => false
-      }
-    }
 
   refreshApp(checkUser) {
     axiosData.get('/users.json')
@@ -79,7 +66,7 @@ export default class App extends Component {
     } else {
       this.refreshApp(true);
     }
-    this.data.onAuthStateChanged( user => {
+    fire.onAuthStateChanged( user => {
       if (user) {
         this.setState({
           isLoggedIn: !!user,
@@ -119,7 +106,7 @@ export default class App extends Component {
     sessionStorage.removeItem('user');
     Cookies.remove('isLoggedIn');
     Cookies.remove('currentUser');
-    this.data.signOut();
+    fire.signOut();
     this.refreshApp(true);
   }
 
@@ -141,6 +128,6 @@ export default class App extends Component {
 
     return isLoggedIn ? 
     <BaseContainer userdata={this.state.currentUser} onLogout={this.onLogout.bind(this)} /> : 
-    <StartPageContainer onSubmit={this.onLogin.bind(this)} uiConfig={this.uiConfig} refreshApp={this.refreshApp.bind(this)} firebaseAuth={this.data} resetForm={this.resetForm} /> 
+    <StartPageContainer onSubmit={this.onLogin.bind(this)} uiConfig={uiConfig} refreshApp={this.refreshApp.bind(this)} firebaseAuth={fire} resetForm={this.resetForm} /> 
   };
 };

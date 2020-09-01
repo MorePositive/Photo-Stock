@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import DatePicker from "react-datepicker";
 import axiosData from '../../../service/axiosData';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { faEye } from '@fortawesome/free-solid-svg-icons'
 
 import "react-datepicker/dist/react-datepicker.css";
 import './sign-up.css'
@@ -24,18 +26,11 @@ export default class SignUpPage extends Component {
 			birthday: '',
 			inputValidError: {
 				userNameError: '',
-				userNameClazz: '',
 				surNameError: '',
-				surNameClazz: '',
 				emailError: '',
-				emailClazz: '',
 				passwordError: '',
-				passwordClazz: '',
 				passwordConfirmError: '',
-				passwordConfirmClazz: '',
-				roleError: '',
 				birthdayError: '',
-				birthdayClazz: ''
 			},
 			passwordShown: false,
 			confirmShown: false,
@@ -108,66 +103,46 @@ export default class SignUpPage extends Component {
 		let passwordError = '';
 		let passwordConfirmError = '';
 		let birthdayError = '';
-		let userNameClazz = '';
-		let surNameClazz = '';
-		let emailClazz = '';
-		let passwordClazz = '';
-		let passwordConfirmClazz = '';
-		let birthdayClazz = '';
 
 		const validEmail = this.checkDublicate();
 
 		if (!userName) {
 		userNameError = "name is empty";
-		userNameClazz = " is-invalid";
 		} 
 
 		if (!surName) {
 			surNameError = "surname is empty";
-			surNameClazz += " is-invalid";
 		}
 
 		if (!email) {
 			emailError = "email field is empty";
-			emailClazz += " is-invalid"
 		} else if (!validEmail) {
 			emailError = "email already registered";
-			emailClazz += " is-invalid"
 		}
 
 		if (!password) {
 			passwordError = "password field is empty";
-			passwordClazz += " is-invalid";
 		}
 
 		if (!passwordConfirm) {
 			passwordConfirmError = "confirm your password";
-			passwordConfirmClazz += " is-invalid";
 		} else if (passwordConfirm !== password) {
 			passwordConfirmError = "incorrect password";
-			passwordConfirmClazz += " is-invalid";
 		}
 
 		if (!birthday) {
 			birthdayError = "birthday field is empty";
-			birthdayClazz += " is-invalid";
 		}
 
 		if (!validEmail || userNameError || surNameError || emailError || passwordError || passwordConfirmError || birthdayError) {
 			this.setState({
 				inputValidError: {
 					userNameError, 
-					userNameClazz, 
 					surNameError,
-					surNameClazz, 
 					emailError,
-					emailClazz, 
 					passwordError,
-					passwordClazz,
 					passwordConfirmError,
-					passwordConfirmClazz,
 					birthdayError,
-					birthdayClazz 
 				} 
 			})
 			return false
@@ -194,14 +169,8 @@ export default class SignUpPage extends Component {
 
 	render() {
 
-		const { passwordShown, confirmShown, password, passwordConfirm, isRedirect } = this.state;
+		const { passwordShown, confirmShown, isRedirect } = this.state;
 
-		const hideIcon = password ? "fa fa-eye password-icon" : "";
-		const hideIconConfirm = passwordConfirm ? "fa fa-eye password-icon" : "";
-		const errorStyle = {
-			fontSize: 12,
-			color: 'red'
-		}
 		if (isRedirect) {
 			return <Redirect to="/login"/>
 		}
@@ -213,36 +182,36 @@ export default class SignUpPage extends Component {
 				<div className="form-group">
 					<div className="form-wrapper">
 						<label htmlFor="role" className="label">Username<span className="required">*</span></label>
-						<input type="text" className={this.state.inputValidError.userNameClazz} name="userName" value={this.state.userName} onChange={this.handleChange} />
-						<div style={errorStyle} className="">{this.state.inputValidError.userNameError}</div>
+						<input type="text" name="userName" value={this.state.userName} onChange={this.handleChange} />
+						<div className="validation-error">{this.state.inputValidError.userNameError}</div>
 					</div>
 					<div className="form-wrapper">
 						<label htmlFor="lastname" className="label">Surname<span className="required">*</span></label>
-						<input type="text" className={this.state.inputValidError.surNameClazz} name="surName" value={this.state.surName} onChange={this.handleChange} />
-						<div style={errorStyle}  className="">{this.state.inputValidError.surNameError}</div>
+						<input type="text" name="surName" value={this.state.surName} onChange={this.handleChange} />
+						<div  className="validation-error">{this.state.inputValidError.surNameError}</div>
 					</div>
 				</div>
 				<div className="form-wrapper">
 					<label htmlFor="email" className="label">Email address<span className="required">*</span></label>
-					<input type="email" className={this.state.inputValidError.emailClazz} name="email" value={this.state.email} onChange={this.handleChange} />
-					<div style={errorStyle}  className="">{this.state.inputValidError.emailError}</div>
+					<input type="email" name="email" value={this.state.email} onChange={this.handleChange} />
+					<div  className="validation-error">{this.state.inputValidError.emailError}</div>
 				</div>
 				<div className="form-group">
 				<div className="form-wrapper">
 					<div className="password-container">
 					<label htmlFor="password" className="label">Password<span className="required">*</span></label>
-					<input type={passwordShown ? "text" : "password"} className={this.state.inputValidError.passwordClazz} name="password" value={this.state.password} onChange={this.handleChange} />
-					<i className={hideIcon} onClick={this.togglePasswordVisibility}></i>
+					<input type={passwordShown ? "text" : "password"} name="password" value={this.state.password} onChange={this.handleChange} />
+					<FontAwesomeIcon className="eye" icon={faEye} onClick={this.togglePasswordVisibility}/>
 					</div>
-					<div style={errorStyle} className="">{this.state.inputValidError.passwordError}</div>
+					<div className="validation-error">{this.state.inputValidError.passwordError}</div>
 				</div>
 				<div className="form-wrapper">
 					<div className="password-container">
 					<label htmlFor="passwordConfirm" className="label">Password Confirm<span className="required">*</span></label>
-					<input type={confirmShown ? "text" : "password"} className={this.state.inputValidError.passwordConfirmClazz} name="passwordConfirm" value={this.state.passwordConfirm} onChange={this.handleChange} />
-					<i className={hideIconConfirm} onClick={this.togglePasswordConfirmVisibility}></i>
+					<input type={confirmShown ? "text" : "password"} name="passwordConfirm" value={this.state.passwordConfirm} onChange={this.handleChange} />
+					<FontAwesomeIcon className="eye" icon={faEye} onClick={this.togglePasswordConfirmVisibility}/>
 					</div>
-					<div style={errorStyle} className="">{this.state.inputValidError.passwordConfirmError}</div>
+					<div className="validation-error">{this.state.inputValidError.passwordConfirmError}</div>
 				</div>
 				</div>
 				<div className="form-group">
@@ -253,11 +222,10 @@ export default class SignUpPage extends Component {
 				<div className="form-wrapper">
 				<label className="label">Birthday<span className="required">*</span></label>
 				<DatePicker
-				className={this.state.inputValidError.birthdayClazz}
-				selected={this.state.birthday}
-        onChange={(date) => this.setState({birthday: date})}
+					selected={this.state.birthday}
+					onChange={(date) => this.setState({birthday: date})}
 				/>
-				<div style={errorStyle}  className="">{this.state.inputValidError.birthdayError}</div>
+				<div className="validation-error">{this.state.inputValidError.birthdayError}</div>
 				</div>
 				</div>
 				<button className="btn create-acc-btn">Create new</button>

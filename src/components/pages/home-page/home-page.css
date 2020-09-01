@@ -6,3 +6,20 @@
 .greeting {
   margin-bottom: 20px;
 }
+
+.greeting-list {
+  margin: 20px 0px;
+}
+
+.greeting-list-item {
+  list-style: none;
+}
+
+.greeting-subtext {
+  margin-bottom: 20px;
+}
+
+.greeting-list-icon {
+  color: rgb(148, 6, 173);
+  margin-right: 5px;
+}

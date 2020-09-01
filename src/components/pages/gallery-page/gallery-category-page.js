@@ -1,72 +1,31 @@
 import React, { Component } from 'react';
-import axiosData from '../../../service/axiosData'
 import Pagination from '../../pagination/pagination'
 
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../../loader/loader';
+import { connect } from 'react-redux';
+import { fetchedImagesByCategory, paginate, likeImage} from '../../../store/actions/images'
 
-export default class GalleryCategory extends Component {
+class GalleryCategory extends Component {
 
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      images: [],
-      loading: false,
-      currentPage: 1,
-      imagesPerPage: 10,
-    }
+  state = {
+    liked: false
   }
 
   componentDidMount() {
-    this.updateData();
+    this.props.fetchedImagesByCategory(this.props.itemId);
   }
-
-  updateData = () => {
-    this.setState({loading: true})
-    axiosData.get(`/images/${this.props.itemId}.json`)
-    .then(res => {
-    const fetchedImages = [];
-    for (let key in res.data) {
-      fetchedImages.push({
-        ...res.data[key],
-        id: key
-      })
-    }
-    this.setState({
-      images: fetchedImages,
-      loading: false
-    })
-  })
-  .catch(err => console.log(err)); 
-  }
-
-  paginate = pageNumber => {
-    this.setState({ currentPage: pageNumber })
-  };
 
   onLikeHandler = (id, el, e) => {
     const { userName, displayName} = this.props.data;
-    const author = userName || displayName;
-    if (e.target.checked) {
-      if (!el.likes) {
-        el.likes = [author]
-      } else if (el.likes.indexOf(author) === -1) {
-        el.likes.push(author)
-      }
-    } else {
-      const idx = el.likes.indexOf(author)
-      el.likes.splice(idx, 1)
-    }
-
-    axiosData.patch(`/images/${el.category}/${id}.json`, { likes: el.likes })
-    .then(this.setState({images: this.state.images}))
-    .catch(err => console.log(err))	
-}
+    const author = userName || displayName;	
+    this.props.likeImage(id, el, e, author)
+    this.setState((prev) => ({liked: !prev.liked}))
+  }
 
   render() {
-    const { images, currentPage, imagesPerPage } = this.state;
+    const { images, loading, currentPage, imagesPerPage } = this.props;
     const author = this.props.data.userName || this.props.data.displayName;
 
     const indexOfLastImage = currentPage * imagesPerPage;
@@ -77,7 +36,7 @@ export default class GalleryCategory extends Component {
 
       return (
         <div
-          key={img.url}
+          key={img.id}
           className="image-card"
         >
           <img className="uploaded-img" src={img.url} alt={img.title} />
@@ -108,7 +67,7 @@ export default class GalleryCategory extends Component {
         <div
           className="image-container"
         >
-          {this.state.loading ? 
+          {loading || !images ? 
           <Loader /> :  
           renderImage
           }  
@@ -116,10 +75,29 @@ export default class GalleryCategory extends Component {
         <Pagination
           imagesPerPage={imagesPerPage}
           totalImages={images.length}
-          paginate={this.paginate}
+          paginate={this.props.paginate}
           category={this.props.itemId}
       />
       </section>  
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    images: state.images.images,
+    loading: state.images.loading,
+    currentPage: state.images.currentPage,
+    imagesPerPage: state.images.imagesPerPage
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchedImagesByCategory: category => dispatch(fetchedImagesByCategory(category)),
+    paginate: (page) => dispatch(paginate(page)),
+    likeImage: (id, el, e, author) => dispatch(likeImage(id, el, e, author))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GalleryCategory);

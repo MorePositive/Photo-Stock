@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import Slider from "react-slick";
 import axiosData from '../../service/axiosData'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import './slider.css'
 import Loader from "../loader/loader";
+import {settings} from './settings'
 
 
 export default class Carousel extends Component {
 
   state = {
     images: [],
-    loading: false
+    loading: true
   }
 
   componentDidMount() {
@@ -21,7 +20,6 @@ export default class Carousel extends Component {
   }
 
   updateData = () => {
-    this.setState({ loading : true })
     axiosData.get('/images.json')
     .then(res => {
     let fetchedImages = [];
@@ -44,64 +42,6 @@ export default class Carousel extends Component {
   }
 
   render() {
-
-    const settings = {
-      dots: true,
-      lazyLoad: true,
-      infinite: true,
-      slidesToShow: 5,
-      slidesToScroll: 1,
-      autoplay: true,
-      autoplaySpeed: 2000,
-      pauseOnHover: true,
-      responsive: [
-        {
-          breakpoint: 1780,
-          settings: {
-            slidesToShow: 4,
-            slidesToScroll: 1,
-            initialSlide: 2,
-            infinite: true,
-            dots: true
-          }
-        },
-        {
-          breakpoint: 1440,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 1,
-            initialSlide: 2,
-            infinite: true,
-            dots: true
-          }
-        },
-        {
-          breakpoint: 1120,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 1,
-            initialSlide: 2,
-            infinite: true,
-            dots: true
-          }
-        },
-        {
-          breakpoint: 780,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            initialSlide: 2
-          }
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1
-          }
-        }
-      ]
-    };
 
     const { images, loading } = this.state;
 

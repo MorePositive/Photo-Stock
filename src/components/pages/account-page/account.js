@@ -1,44 +1,24 @@
 import React, {Component} from 'react';
 import axiosData from '../../../service/axiosData';
 import { storage } from '../../../service/fire'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons';
+import { connect } from 'react-redux'
+import { fetchImages } from '../../../store/actions/images'
 import './account.css';
 
-export default class Account extends Component {
+class Account extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      images: [],
-      title: '',
-      category: 'animals',
-      image: null,
-      url: '',
-      progress: 0
-    }
+  state = {
+    title: '',
+    category: 'animals',
+    image: null,
+    url: '',
+    progress: 0
   }
 
   componentDidMount() {
-    this.updateData();
-  }
-
-  updateData = () => {
-    axiosData.get('/images.json')
-    .then(res => {
-    const fetchedImages = [];
-    for (let key in res.data) {
-      fetchedImages.push({
-        ...res.data[key],
-        id: key
-      })
-    }
-    this.setState({
-      images: fetchedImages
-    })
-  })
-  .catch(err => console.log(err)); 
+    this.props.fetchImages();
   }
 
   postImageAdd = (e) => {
@@ -57,7 +37,7 @@ export default class Account extends Component {
         progress: 0
       })
       alert('Image was successfully added');
-      this.updateData();
+      this.props.fetchImages()
     })
     .catch(err => console.log(err))
   }		
@@ -90,8 +70,8 @@ export default class Account extends Component {
 
   render() {
 
-    const { userName, displayName, email} = this.props.data;
-    const { title, category, images } = this.state;
+    const { images, data : {userName, displayName, email}} = this.props;
+    const { title, category, url, progress } = this.state;
 
     const renderImages = images.map(image => {
     const values = Object.values(image);
@@ -147,11 +127,11 @@ export default class Account extends Component {
               </div>
           </div>
             <div className="file-container">
-              <progress value={this.state.progress} max="100" />
+              <progress value={progress} max="100" />
               <label>
               <input type="file" className="file-input" id="image" onChange={this.handleUpload} required/>
               <FontAwesomeIcon icon={faCloudUploadAlt} />
-              <img className="uploaded-img" src={this.state.url || 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQaOowt_yTa48-y4qF73w-OLzLqrvtrPJITQg&usqp=CAU'} alt="upload" />
+              <img className="uploaded-img" src={url || 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQaOowt_yTa48-y4qF73w-OLzLqrvtrPJITQg&usqp=CAU'} alt="upload" />
               </label>
               <div>
                 <button className="btn nav-button add-image-btn">Add Image</button>
@@ -169,3 +149,17 @@ export default class Account extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    images: state.images.images,
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchImages: () => dispatch(fetchImages())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Account)

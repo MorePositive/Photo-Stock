@@ -13,5 +13,19 @@ var firebaseConfig = {
   appId: "1:591858191675:web:d1d3306a89c61c1aa5fb1e"
 };
 
-export const fire = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
+
+export const uiConfig = {
+  signInFlow: "popup",
+  signInOptions: [
+    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+    firebase.auth.GithubAuthProvider.PROVIDER_ID,
+  ],
+  callbacks: {
+    signInSuccessWithAuthResult: () => false
+    }
+  }
+
+export const fire = firebase.auth();
 export const storage = firebase.storage();
