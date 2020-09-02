@@ -5,6 +5,7 @@ import {
   FETCH_IMAGES_ERROR, 
   SET_CURRENT_PAGE, 
   IMAGES_SET_STATE,
+  UPDATE_LIKES,
 } from './action-types'
 
 export function fetchImages() {
@@ -68,8 +69,8 @@ export function paginate(pageNumber) {
 };
 
 export function likeImage(id, el, e, author) {
-  return async (dispatch, getState) => {
-    const state = getState().images
+  return dispatch => {
+   
   if (e.target.checked) {
     if (!el.likes) {
       el.likes = [author]
@@ -82,9 +83,15 @@ export function likeImage(id, el, e, author) {
   }
 
   axiosData.patch(`/images/${el.category}/${id}.json`, { likes: el.likes })
-  .then(dispatch(imagesSetState(state.images)))
+  .then(dispatch(updateLikes()))
   .catch(err => console.log(err))	
-  } 
+  }
+}
+
+export function updateLikes() {
+  return {
+    type: UPDATE_LIKES,
+  }
 }
 
 export function imagesSetState(images) {

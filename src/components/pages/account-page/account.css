@@ -69,7 +69,7 @@ progress {
 }
 
 @media screen and (max-width: 768px) {
-  .form-wrapper {
+  .form-container {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;

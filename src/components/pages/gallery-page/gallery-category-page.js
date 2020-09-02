@@ -5,13 +5,9 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../../loader/loader';
 import { connect } from 'react-redux';
-import { fetchedImagesByCategory, paginate, likeImage} from '../../../store/actions/images'
+import { fetchedImagesByCategory, paginate, likeImage, updateLikes} from '../../../store/actions/images'
 
 class GalleryCategory extends Component {
-
-  state = {
-    liked: false
-  }
 
   componentDidMount() {
     this.props.fetchedImagesByCategory(this.props.itemId);
@@ -21,7 +17,6 @@ class GalleryCategory extends Component {
     const { userName, displayName} = this.props.data;
     const author = userName || displayName;	
     this.props.likeImage(id, el, e, author)
-    this.setState((prev) => ({liked: !prev.liked}))
   }
 
   render() {
@@ -88,7 +83,8 @@ function mapStateToProps(state) {
     images: state.images.images,
     loading: state.images.loading,
     currentPage: state.images.currentPage,
-    imagesPerPage: state.images.imagesPerPage
+    imagesPerPage: state.images.imagesPerPage,
+    isLiked: state.images.isLiked
   }
 }
 
@@ -96,7 +92,8 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchedImagesByCategory: category => dispatch(fetchedImagesByCategory(category)),
     paginate: (page) => dispatch(paginate(page)),
-    likeImage: (id, el, e, author) => dispatch(likeImage(id, el, e, author))
+    likeImage: (id, el, e, author) => dispatch(likeImage(id, el, e, author)),
+    updateLikes: () => dispatch(updateLikes())
   }
 }
 

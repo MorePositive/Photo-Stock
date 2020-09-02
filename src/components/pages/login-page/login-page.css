@@ -63,7 +63,7 @@ input:-webkit-autofill:focus {
 
 .btn {
   background: rgb(148, 6, 173);
-  border: 0;
+  border: 1px solid black;
   outline: none;
   cursor: pointer;
   margin-top: 10px;

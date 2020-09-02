@@ -4,6 +4,7 @@ import {
   FETCH_IMAGES_ERROR,
   SET_CURRENT_PAGE,
   IMAGES_SET_STATE,
+  UPDATE_LIKES,
 } from '../actions/action-types'
 
 const initialState = {
@@ -12,6 +13,7 @@ const initialState = {
   error: null,
   currentPage: 1,
   imagesPerPage: 10,
+  isLiked: false
 }
 
 export default function imagesReducer(state = initialState, action) {
@@ -29,6 +31,10 @@ export default function imagesReducer(state = initialState, action) {
     case FETCH_IMAGES_ERROR: 
       return {
         ...state, error: action.error, loading: false
+      }
+    case UPDATE_LIKES:
+      return {
+        ...state, isLiked: !state.isLiked
       }
     case IMAGES_SET_STATE:
       return {

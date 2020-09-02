@@ -4,14 +4,10 @@ import { Link } from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import Loader from '../../loader/loader';
-import { fetchImages, likeImage } from '../../../store/actions/images'
+import { fetchImages, likeImage, updateLikes } from '../../../store/actions/images'
 import { connect } from 'react-redux'
 
 class GalleryAll extends Component {
-
-  state = {
-    liked: false
-  }
 
   componentDidMount() {
     this.props.fetchImages();
@@ -21,7 +17,6 @@ class GalleryAll extends Component {
     const { userName, displayName} = this.props.data;
     const author = userName || displayName;	
     this.props.likeImage(id, el, e, author)
-    this.setState((prev) => ({liked: !prev.liked}))
   }
 
   render() {
@@ -89,14 +84,16 @@ class GalleryAll extends Component {
 function mapStateToProps(state) {
   return {
     images: state.images.images,
-    loading: state.images.loading
+    loading: state.images.loading,
+    isLiked: state.images.isLiked
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     fetchImages: () => dispatch(fetchImages()),
-    likeImage: (id, el, e, author) => dispatch(likeImage(id, el, e, author))
+    likeImage: (id, el, e, author) => dispatch(likeImage(id, el, e, author)),
+    updateLikes: () => dispatch(updateLikes())
   }
 }
 
